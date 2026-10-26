@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tracker"
+version = "0.1.0"
+description = "CRUD for the Day 3 task-tracker schema with SQLAlchemy 2.0 (Day 4)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "sqlalchemy>=2.0,<2.1",
+    "psycopg[binary]>=3.2",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
+
+[tool.setuptools]
+packages = ["tracker"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes: unused imports, undefined names
+    "I",   # isort: import ordering
+    "N",   # pep8-naming
+    "UP",  # pyupgrade: modern syntax (list[int], X | None)
+    "B",   # flake8-bugbear: likely bugs
+    "SIM", # flake8-simplify
+    "ANN", # flake8-annotations: every function must have type hints
+    "RUF", # ruff-specific rules
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true

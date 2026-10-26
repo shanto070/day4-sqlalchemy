@@ -1,0 +1,14 @@
+﻿
+=== 1. N+1 queries ===
+Lazy loading in a loop: 21 queries for 10 tasks (1 + 10 + 10)
+selectinload():         3 queries, however many tasks there are
+raiseload('*') stopped a lazy load: 'Task.comments' is not available due to lazy='raise'
+
+=== 2. Detached instances ===
+read_labels_after_close:  DetachedInstanceError: Parent instance <Task at 0x25255852ad0> is not bound to a Session; lazy load operation of attribute 'labels' cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+read_title_after_commit:  DetachedInstanceError: Instance <Task at 0x25255879910> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+read_labels_before_close: ['demo']
+
+=== 3. Session leaks ===
+2 unclosed sessions hold 2 of 2 pool connections. Session 3 waited 1 second, then got TimeoutError.
+10 sessions in `with` blocks: 0 connections still checked out
